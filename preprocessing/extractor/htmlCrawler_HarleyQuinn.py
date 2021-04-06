@@ -39,4 +39,15 @@ for d in dialogs:
     temp = d.split(" ")
     total_words += temp
 
-print(total_words)
+final_words = []
+for t in total_words:
+    if "'" in t:
+        k = t.split("'")
+        final_words.append(k[0])
+    else:
+        final_words.append(t)
+
+final = " ".join(final_words)
+output = open('HarleyQuinn.txt', 'w', encoding='utf-8')
+output.write(final)
+output.close()

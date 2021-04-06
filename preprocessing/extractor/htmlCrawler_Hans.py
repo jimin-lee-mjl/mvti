@@ -34,7 +34,7 @@ lines = []
 for l in role_line_list:
     if l[0].startswith("HANS"):
         line = l[1].split('\r\n\r\n')
-        lines.append(line[0].replace("\n","").replace("\r","").strip())
+        lines.append(line[0].replace("\n","").replace("\r","").replace(".","").replace(",","").replace("?","").replace("-","").replace("!","").strip().lower())
 # print(lines)
 
 # 개별 단어 추출
@@ -45,6 +45,13 @@ string = string.split(' ')
 
 for s in string:
     if s != '' and s[0]!="(" and s[-1]!=")":
-        remove_blank.append(s)
+        if "'"in s:
+            k = s.split("'")
+            remove_blank.append(k[0])
+        else:
+            remove_blank.append(s)
 
-print(remove_blank)
+final = " ".join(remove_blank)
+output = open('Hans.txt', 'w', encoding='utf-8')
+output.write(final)
+output.close()
