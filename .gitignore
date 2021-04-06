@@ -1,2 +1,2 @@
-backend/myvenv/*
 __pycache__/
+myvenv/*
