@@ -1,3 +1,4 @@
+# 스타워즈 크롤러입니다 
 def handle_file(file):
     lines = []
 
