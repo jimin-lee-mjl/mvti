@@ -4,55 +4,72 @@ import json
 import os
 from bs4 import BeautifulSoup
 
-pattern = "{.*}|\[.*\]"
 
-# 겨울왕국 - 한스(HANS)
-req = requests.get('https://transcripts.fandom.com/wiki/The_Lion_King')
-html = req.text
-soup = BeautifulSoup(html, 'html.parser')
-# script = soup.select_one('.scrtext > pre')
-script = soup.select_one('#mw-content-text > div')
+def get_text(link):
+    PATTERN = "{.*}|\[.*\]|\(.*\)"
+    req = requests.get(link)
+    html = req.text
+    soup = BeautifulSoup(html, 'html.parser')
+    script = soup.select_one('#mw-content-text > div')
+    script = str(script)
+    script = re.sub(PATTERN, "", script)
 
-# bs4 객체 type casting
-script = str(script)
-script = re.sub(pattern, "", script)
+    return script 
 
-# 각 대사 별로 자르기 (인물 이름 포함)
-raw_lines = script.split("<b>")
 
-# 공백 제거한 대사 리스트
-strip_line = []
+def split_lines(text):
+    raw_lines = text.split("<b>")
+    strip_line = []
 
-for rl in raw_lines:
+    for rl in raw_lines:
     strip_line.append(rl.strip())
 
-# [[인물, 대사],[인물,대사]...] 형식으로 2차원 배열
-role_line_list = []
+    return strip_line
 
-for sl in strip_line:
-    temp = sl.split("</b>")
-    role_line_list.append(temp)
 
-# 인물(l[0])이'HANS'인 대사(l[1])를 찾은 다음, 대사에 섞인 나레이션 제거
-lines = []
+def split_lines_by_role(list):
+    role_line_list = []
 
-for l in role_line_list:
-    if l[0].startswith("Scar"):
-        line = l[1].split('\r\n\r\n')
-        lines.append(line[0].replace("\n","").replace("\r","").replace("?","").replace(".","").strip())
+    for sl in strip_line:
+        temp = sl.split("</b>")
+        role_line_list.append(temp)
 
-# 개별 단어 추출
-remove_blank = []
+    return role_line_list
 
-string = ' '.join(lines)
-string = string.split(' ')
 
-for s in string:
-    if s != '' and s[0]!="(" and s[-1]!=")":
-        remove_blank.append(s)
+def extract_villain_lines(list, name):
+    lines = []
+
+    for l in role_line_list:
+        if l[0].startswith(name):
+            line = l[1].split('\r\n\r\n')
+            lines.append(line[0].replace("\n","").replace("\r","").strip())
+
+    return lines
+
+
+def split_lines_by_words(list):
+    remove_blank = []
+
+    string = ' '.join(lines)
+    string = string.split(' ')
+
+    for s in string:
+        if s != '' and s[0]!="(" and s[-1]!=")":
+            remove_blank.append(s)
+
+    return remove_blank
 
 
 def exporter(filename):
+    LINK = "https://transcripts.fandom.com/wiki/The_Lion_King"
+    NAME = "Scar"
+    script = get_text(LINK)
+    each_line = split_lines(script)
+    lines_by_role = split_lines_by_role(each_line)
+    villain_lines = extract_villain_lines(lines_by_role, NAME)
+    villain_words = split_lines_by_words(villain_lines)
+
     output = open(filename, 'w')
-    output.write(str(remove_blank))
+    output.write(str(villain_words))
     output.close()
