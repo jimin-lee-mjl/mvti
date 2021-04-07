@@ -1,4 +1,5 @@
 import itertools
+import re
 
 text = []
 character = []
@@ -24,10 +25,12 @@ for i in text:
 
 jigsaw_text = [i[1] for i in character if i[0] == "JIGSAW"]
 
-jigsaw_string = ''.join(list(itertools.chain(*jigsaw_text)))
+jigsaw_string = ' '.join(list(itertools.chain(*jigsaw_text))).replace('\t', '').replace('\n', '').replace('�', "'").replace('?', "").replace('!', '').strip()
 
+p = re.compile("[^0-9]")
+jigsaw_string = ''.join(p.findall(jigsaw_string))
 
 with open("../data/jigsaw.txt", "w") as f:
     for i in jigsaw_string:
-        i.replace('\t', '').replace('\n', '').strip()
+        i.replace('\t', '').replace('\n', '').replace('?', '').strip()
         f.write(i)

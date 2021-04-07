@@ -1,5 +1,6 @@
 import pdftotext
 import itertools
+import re
 
 # pdf 파일 경로를 입력합니다..
 file = open("./thedarkknight-screenplay.pdf", 'rb')
@@ -48,11 +49,10 @@ for word in text:
 # 원하는 캐릭터 이름 넣기
 joker_text = [i[1] for i in character if i[0] in "THE JOKER"]
 # print(character)
-joker_string = ''.join(list(itertools.chain(*joker_text)))
-
-print(joker_string)
+joker_string = ' '.join(list(itertools.chain(*joker_text))).replace('\t', '').replace('\n', '').replace('?', '').replace('!', '').strip()
+p = re.compile("[^0-9]")
+joker_string = ''.join(p.findall(joker_string))
 
 with open("../data/joker.txt", "w") as f:
     for i in joker_string:
-        i.replace('\t', '').replace('\n', '').strip()
         f.write(i)
