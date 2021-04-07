@@ -18,10 +18,3 @@ def count_words(list):
 
 # create_word_cloud(JimMoriarty.words)
 # print(count_words(JimMoriarty.words))
-
-def get_files():
-    with open('data-analytics/preprocessing/data/Hans.txt') as lines:
-        lines = list(lines)[0]
-        lines = lines.split()
-        print(list(lines))
-get_files()

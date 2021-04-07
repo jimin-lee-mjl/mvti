@@ -1,8 +1,27 @@
 import re
+import nltk
 from string import punctuation
 from nltk.corpus import stopwords
 # data 폴더에서 대사를 가져와서 words를 정의해줘야 합니다.
 # from ..data import Scar
+
+nltk.download("stopwords")
+
+# 파일 가져오기
+def get_files():
+    # PATTERN = "\(.*\)"
+    file_list = {}
+    file_names = ["Hans", "Fletcher", "Plankton", "Snowball", "HarleyQuinn"]
+    # file_names = ["Hans", "Fletcher"]
+
+    for fn in file_names:
+        with open(f'data-analytics/preprocessing/data/{fn}.txt') as lines:
+            lines = list(lines)[0]
+            # lines = re.sub(PATTERN, "", lines)
+            lines = lines.split()
+            file_list[fn] = lines
+
+    return file_list
 
 
 # 소문자로 만들기
@@ -68,6 +87,10 @@ def split_aux(list):
             set = word.split("'")
             if len(set[0]) > 2:
                 new_list.append(set[0])
+        elif "’" in word:
+            set = word.split("’")
+            if len(set[0]) > 2:
+                new_list.append(set[0])
         else:
             new_list.append(word)
 
@@ -75,12 +98,19 @@ def split_aux(list):
 
 
 # file로 export하기
-def exporter(filename):
-    words_wo_aux_verbs = split_aux(words)
-    extra_removed_list = remove_extra(words_wo_aux_verbs)
-    lowered_words = lower_words(extra_removed_list)
-    words_wo_stopwords = remove_stopwords(lowered_words)
-    
-    output = open(filename, 'a')
-    output.write(str(words_wo_stopwords))
-    output.close()
+def exporter():
+    file_list = get_files()
+
+    for name, words in file_list.items():
+        filename = name
+        words_wo_aux_verbs = split_aux(words)
+        extra_removed_list = remove_extra(words_wo_aux_verbs)
+        lowered_words = lower_words(extra_removed_list)
+        words_wo_stopwords = remove_stopwords(lowered_words)
+        
+        output = open(f'{filename}.txt', 'a')
+        output.write(str(words_wo_stopwords))
+        output.close()
+
+
+exporter()
