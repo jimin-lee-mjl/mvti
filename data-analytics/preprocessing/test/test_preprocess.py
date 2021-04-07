@@ -1,5 +1,5 @@
 from string import punctuation
-from ..extractor import preprocessor
+# from ..extractor import preprocessor
 
 
 def test_remove_punctuation():
@@ -27,24 +27,24 @@ def find_end(line, start):
     return end
 
 
-def get_index_set(line):
+def get_sliced_line(line):
     start = find_start(line)
-    end = find_end(line[start:], start)
-    set = (start, end)
-    return set
-
-
-def slice_line(line, set):
-    line = line[:set[0]] + line[set[1]+1:]
+    
+    if ")" in line[start]:
+        line = line[:start] + line[start+1:]
+    else:
+        end = find_end(line[start:], start)
+        line = line[:start] + line[end+1:]
+    
     return line
 
 
 def test_remove_action():
-    line = "(Shot the phone at Tapp) Listen carefully, if you will There are rules (Lawrence on the floor e rules)"
+    line = "(Shot the Tapp) Listen carefully, (ifyou) will There are rules (Lawrence on rules)"
     line = line.split()
-    
-    while "(" in line:
-        index_set = get_index_set(line)
-        line = slice_line(line, index)
+    parentheses = [word for word in line if "(" in word]
 
-    assert line == "Listen carefully, if you will There are rules".split()
+    for paren in range(len(parentheses)):
+        line = get_sliced_line(line)
+
+    assert line == "Listen carefully, will There are rules".split()
