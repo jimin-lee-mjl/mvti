@@ -1,5 +1,6 @@
 import pdftotext
 import itertools
+import re
 
 # pdf 파일 경로를 입력합니다..
 file = open("./Whiplash.pdf", 'rb')
@@ -48,9 +49,12 @@ for word in text:
 # 원하는 캐릭터 이름 넣기
 fletcher_text = [i[1] for i in character if i[0] in "FLETCHER"]
 # print(character)
-fletcher_string = ''.join(list(itertools.chain(*fletcher_text)))
+fletcher_string = ' '.join(list(itertools.chain(*fletcher_text))).replace('\t', '').replace('\n', '').replace('?', '').replace('!', '').strip()
+p = re.compile("[^0-9]")
+fletcher_string = ''.join(p.findall(fletcher_string))
+
 
 with open("../data/fletcher.txt", "w") as f:
     for i in fletcher_string:
-        i.replace('\t', '').replace('\n', '').strip()
+        i.replace('\t', '').replace('\n', '').replace('?', '').strip()
         f.write(i)
