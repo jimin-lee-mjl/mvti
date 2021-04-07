@@ -1,5 +1,5 @@
 from string import punctuation
-# from ..extractor import preprocessor
+from ..extractor import preprocessor
 
 
 def test_remove_punctuation():

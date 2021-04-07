@@ -1,6 +1,6 @@
 from collections import Counter
 from wordcloud import WordCloud
-from ..preprocessing.data import (
+from preprocessing.data import (
     Hans,
     HarleyQuinn,
     Jigsaw,
@@ -16,11 +16,6 @@ def create_word_cloud(words, name):
     cloud = WordCloud(background_color="white")
     cloud.fit_words(counter)
     cloud.to_file('{}.png'.format(name))
-
-
-# 단어 수 세기 
-# def count_words(words):
-#     return dict(counter)
 
 
 def exporter():
