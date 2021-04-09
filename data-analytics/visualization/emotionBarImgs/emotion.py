@@ -4,7 +4,20 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from nltk.sentiment.vader import SentimentIntensityAnalyzer 
 from nrclex import NRCLex
-from preprocessing.data import Scar
+from preprocessing.data import (
+    Hans,
+    HarleyQuinn,
+    Jigsaw,
+    Joker,
+    Fletcher,
+    Snowball,
+    Plankton,
+    Vader,
+    Thanos,
+    HannibalLecter,
+    JimMoriarty,
+    Scar
+)
 
 # nltk.download('vader_lexicon')
 # nltk.download('punkt')
@@ -57,28 +70,40 @@ def sum_emotion(data):
                 emotion_dict[emo[0]] += emo[1]
 
     return emotion_dict
+
+
+def draw_graph(data, name):
+    emotions = pd.DataFrame({
+        'emotions': data
+    })
+    fig, ax = plt.subplots(figsize=(8, 6))
+    ax.bar(emotions.index, emotions['emotions'])
+    plt.tight_layout()
+    plt.title(name)
+    fig.savefig(f'{name}_emotion.png',bbox_inches='tight')
     
 
 def main():
-    WORDS = Scar.words
-    word_dict = get_vader_score(WORDS)
-    polar_list = get_polar(word_dict)
-    emotion_list = classify_emotion(polar_list)
-    emotion_dict = sum_emotion(emotion_list)
+    FILES = {
+        "Hans": Hans.words,
+        "Fletcher": Fletcher.words,
+        "Plankton": Plankton.words,
+        "Snowball": Snowball.words,
+        "HarleyQuinn": HarleyQuinn.words,
+        "Jigsaw": Jigsaw.words,
+        "Joker": Joker.words,
+        "Vader": Vader.words,
+        "Thanos": Thanos.words,
+        "HannibalLecter": HannibalLecter.words,
+        "JimMoriarty": JimMoriarty.words
+    }
 
-    emotions = pd.DataFrame({
-        'emotions': emotion_dict
-    })
-    fig, ax = plt.subplots(figsize=(8, 6))
-    # plt.figure(figsize=(8,6))
-    # sns.barplot(data=emotions, x='emotions')
-    ax.bar(emotions.index, emotions['emotions'])
-    plt.tight_layout()
-    plt.title('Scar')
-    # plt.show
-    fig.savefig('Scar_emotion.png',bbox_inches='tight')
-    # return emotions
-    # return emotions['emotions']
+    for fn, words in FILES.items():
+        word_dict = get_vader_score(words)
+        polar_list = get_polar(word_dict)
+        emotion_list = classify_emotion(polar_list)
+        emotion_dict = sum_emotion(emotion_list)
+        draw_graph(emotion_dict, fn)
 
 
-print(main())
+main()

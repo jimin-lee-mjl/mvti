@@ -28,7 +28,7 @@ def count_words(files):
 
 
 def exporter():
-    files = {
+    FILES = {
         "Hans": Hans.words,
         "Fletcher": Fletcher.words,
         "Plankton": Plankton.words,
@@ -42,7 +42,7 @@ def exporter():
         "JimMoriarty": JimMoriarty.words,
         "Scar": Scar.words
     }
-    counts_dict = count_words(files)
+    counts_dict = count_words(FILES)
 
     output = open('wordCounts.txt', 'a')
     output.write(str(counts_dict))

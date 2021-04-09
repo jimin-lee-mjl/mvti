@@ -1,6 +1,6 @@
 def test_sum_emotion():
     data = [[('positive', 1.0), ('fear', 0.1)], 
-            [('fear', 0.16666666666666666), ('anger', 0.16666666666666666), ('surprise', 0.16666666666666666), ('negative', 0.16666666666666666)]]
+            [('fear', 0.16666666666666666), ('anger', 0.16666666666666666)]]
     emotion_dict = {}
 
     for top_emo in data:
@@ -11,4 +11,4 @@ def test_sum_emotion():
             else:
                 emotion_dict[emo[0]] += emo[1]
 
-    assert emotion_dict == {'fear': 0.26666666666666666, 'positive': 1.0, 'anger': 0.16666666666666666, 'surprise': 0.16666666666666666, 'negative': 0.16666666666666666}
+    assert emotion_dict == {'fear': 0.26666666666666666, 'positive': 1.0, 'anger': 0.16666666666666666}
