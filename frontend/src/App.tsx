@@ -6,10 +6,12 @@ import './App.css';
 import Button from '@material-ui/core/Button';
 
 import Result from './pages/Result';
+import Index from './pages/Index';
 
 function App() {
   return (
     <>
+      <Route exact path='/index' component={Index} />
       <Switch>
         <Route path="/result" component={Result} />
       </Switch>
