@@ -72,6 +72,48 @@ def sum_emotion(data):
     return emotion_dict
 
 
+def get_emotion_dict():
+    FILES = {
+        "Hans": Hans.words,
+        "Fletcher": Fletcher.words,
+        "Plankton": Plankton.words,
+        "Snowball": Snowball.words,
+        "HarleyQuinn": HarleyQuinn.words,
+        "Jigsaw": Jigsaw.words,
+        "Joker": Joker.words,
+        "Vader": Vader.words,
+        "Thanos": Thanos.words,
+        "HannibalLecter": HannibalLecter.words,
+        "JimMoriarty": JimMoriarty.words,
+        "Scar": Scar.words
+    }
+    emotion_dict = {}
+
+    for fn, words in FILES.items():
+        word_dict = get_vader_score(words)
+        polar_list = get_polar(word_dict)
+        emotion_list = []
+
+        for word in polar_list:
+            emotion = NRCLex(word)
+            emo = emotion.affect_dict
+            if emo:
+                emotion_list.append(emo)
+        
+        emotion_dict[fn] = emotion_list
+
+    return emotion_dict
+
+
+def export_emotion_dict(data):
+    output = open('characterEmotions.txt', 'a')
+    output.write(str(data))
+    output.close()
+        
+
+export_emotion_dict(get_emotion_dict())
+
+
 def draw_graph(data, name):
     emotions = pd.DataFrame({
         'emotions': data
@@ -106,4 +148,4 @@ def main():
         draw_graph(emotion_dict, fn)
 
 
-main()
+# main()
