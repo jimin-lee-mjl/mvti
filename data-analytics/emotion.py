@@ -1,6 +1,8 @@
 import nltk
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 from nltk.sentiment.vader import SentimentIntensityAnalyzer 
-# from nltk.sentiment.sentiment_analyzer import SentimentAnalyzer
 from nrclex import NRCLex
 from preprocessing.data import Scar
 
@@ -21,34 +23,62 @@ def get_vader_score(words):
     return word_dict
 
 
-def get_pos(data):
-    pos_list = []
+def get_polar(data):
+    polar_list = []
 
     for word, score in data.items():
-        if score > 0:
-            pos_list.append(word)
+        if score != 0:
+            polar_list.append(word)
 
-    return pos_list
+    return polar_list
 
 
 def classify_emotion(data):
-    emotion_dict = {}
+    emotion_list = []
+
     for word in data:
         emotion = NRCLex(word)
         top_emo = emotion.top_emotions
         if top_emo[0][1] != 0.0:
-            emotion_dict[word] = top_emo
+            emotion_list.append(top_emo)
+
+    return emotion_list
+
+
+def sum_emotion(data):
+    emotion_dict = {}
+
+    for top_emo in data:
+        for emo in top_emo:
+            emotion = emotion_dict.get(emo[0])
+            if not emotion:
+                emotion_dict[emo[0]] = emo[1]
+            else:
+                emotion_dict[emo[0]] += emo[1]
 
     return emotion_dict
-
+    
 
 def main():
     WORDS = Scar.words
     word_dict = get_vader_score(WORDS)
-    pos_list = get_pos(word_dict)
-    emotions = classify_emotion(pos_list)
+    polar_list = get_polar(word_dict)
+    emotion_list = classify_emotion(polar_list)
+    emotion_dict = sum_emotion(emotion_list)
 
-    return emotions
+    emotions = pd.DataFrame({
+        'emotions': emotion_dict
+    })
+    fig, ax = plt.subplots(figsize=(8, 6))
+    # plt.figure(figsize=(8,6))
+    # sns.barplot(data=emotions, x='emotions')
+    ax.bar(emotions.index, emotions['emotions'])
+    plt.tight_layout()
+    plt.title('Scar')
+    # plt.show
+    fig.savefig('Scar_emotion.png',bbox_inches='tight')
+    # return emotions
+    # return emotions['emotions']
 
 
 print(main())
