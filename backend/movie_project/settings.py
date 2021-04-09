@@ -77,8 +77,12 @@ WSGI_APPLICATION = 'movie_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'movie',
+        'USER': 'elice',
+        'PASSWORD': 'admin1234',
+        'HOST': 'elice-kdt-ai-track-vm-da-05.koreacentral.cloudapp.azure.com',
+        'PORT': '5433',
     }
 }
 
