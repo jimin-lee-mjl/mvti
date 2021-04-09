@@ -10,7 +10,7 @@ import Index from './pages/Index';
 function App() {
   return (
     <>
-      <Route exact path="/index" component={Index} />
+      <Route exact path='/index' component={Index} />
     </>
   );
 }
