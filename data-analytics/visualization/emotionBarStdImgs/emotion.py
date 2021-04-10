@@ -6,6 +6,7 @@ from collections import Counter
 from wordcloud import WordCloud
 from nltk.sentiment.vader import SentimentIntensityAnalyzer 
 from nrclex import NRCLex
+from sklearn.preprocessing import MinMaxScaler
 from preprocessing.data import (
     Hans,
     HarleyQuinn,
@@ -156,11 +157,19 @@ def draw_graph(data, name):
     emotions = pd.DataFrame({
         'emotions': data
     })
+    emo_values = emotions.to_numpy()
+    # 0~1 사이의 값으로 정규화 
+    # 방법 1. fit(data) -> transform(data)
+    # 방법 2. fit_transform(data)
+    scaler = MinMaxScaler().fit(emo_values)
+    _data = scaler.transform(emo_values)
+    emotions['emotions'] = _data
+
     fig, ax = plt.subplots(figsize=(8, 6))
     ax.bar(emotions.index, emotions['emotions'])
     plt.tight_layout()
     plt.title(name)
-    fig.savefig(f'{name}_emotion.png',bbox_inches='tight')
+    fig.savefig(f'{name}_emotion_std.png',bbox_inches='tight')
     
 
 def main():

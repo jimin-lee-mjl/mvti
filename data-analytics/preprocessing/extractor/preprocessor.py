@@ -3,7 +3,7 @@ import nltk
 from string import punctuation
 from nltk.corpus import stopwords
 
-nltk.download("stopwords")
+# nltk.download("stopwords")
 
 
 def find_start(line):
@@ -145,4 +145,4 @@ def exporter():
         output.close()
 
 
-exporter()
+# exporter()
