@@ -2,6 +2,8 @@ import nltk
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from collections import Counter
+from wordcloud import WordCloud
 from nltk.sentiment.vader import SentimentIntensityAnalyzer 
 from nrclex import NRCLex
 from preprocessing.data import (
@@ -24,6 +26,7 @@ from preprocessing.data import (
 sid = SentimentIntensityAnalyzer()
 
 
+# vader score를 구해서 단어 별 점수를 딕셔너리 형식으로 저장 
 def get_vader_score(words):
     word_dict = {}
 
@@ -36,6 +39,7 @@ def get_vader_score(words):
     return word_dict
 
 
+# 중립 단어를 제외하고 긍/부정적인 단어만 추출
 def get_polar(data):
     polar_list = []
 
@@ -46,6 +50,7 @@ def get_polar(data):
     return polar_list
 
 
+# 단어의 구체적(라벨링된) 감정을 추출해서 리스트에 저장 
 def classify_emotion(data):
     emotion_list = []
 
@@ -58,6 +63,7 @@ def classify_emotion(data):
     return emotion_list
 
 
+# 감정 별 수치를 모두 합산 
 def sum_emotion(data):
     emotion_dict = {}
 
@@ -72,6 +78,7 @@ def sum_emotion(data):
     return emotion_dict
 
 
+# 키워드 별 감정 사전을 반환 
 def get_emotion_dict():
     FILES = {
         "Hans": Hans.words,
@@ -105,15 +112,46 @@ def get_emotion_dict():
     return emotion_dict
 
 
+# 감정 별 키워드 수를 세기 위한 키워드 리스트를 만듦 
+def creat_emotion_dict_for_counter(data):
+    emotion_dict = {}
+
+    for _, words in data.items():
+        for emo_dict in words:
+            for kw, emotions in emo_dict.items():
+                for emotion in emotions:
+                    temp = emotion_dict.get(emotion)
+                    if temp:
+                        emotion_dict[emotion].append(kw)
+                    else:
+                        emotion_dict[emotion] = []
+                        emotion_dict[emotion].append(kw)
+
+    return emotion_dict
+
+
+# 감정 별 키워드 사전을 워드클라우드 이미지로 내보내기 
+def create_word_cloud(data):
+    for emotion, kws in data.items():
+        counter = Counter(kws)
+        cloud = WordCloud(background_color="white")
+        cloud.fit_words(counter)
+        cloud.to_file('{}.png'.format(emotion))
+
+
+# emotion_dictionary = get_emotion_dict()
+# create_word_cloud(creat_emotion_dict_for_counter(emotion_dictionary))
+
+# 키워드 별 감정 사전을 파일로 내보내기 
 def export_emotion_dict(data):
     output = open('characterEmotions.txt', 'a')
     output.write(str(data))
     output.close()
         
 
-export_emotion_dict(get_emotion_dict())
+# export_emotion_dict(get_emotion_dict())
 
-
+# 캐릭터별 감정 수치 그래프 그리기
 def draw_graph(data, name):
     emotions = pd.DataFrame({
         'emotions': data
