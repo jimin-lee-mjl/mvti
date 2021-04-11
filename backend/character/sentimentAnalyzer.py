@@ -36,9 +36,28 @@ class SentimentAnalyzer():
         cos_sim_rate = calculate_cos_sim(user, villain)
         return round(cos_sim_rate, 2)
 
-    def get_matched_villain(self, user_data):
+    def get_matched_villain(self, dataset):
         villains = Character.objects.all()
-        for villain in villains:
+        cos_sim_rate_dict = {}
+
+        for vil in villains:
+            villain_data = vil.sentiment
+            cos_sim_rate = self.get_cos_sim_rate(dataset, villain_data)
+            cos_sim_rate_dict[vil.name] = cos_sim_rate
+        
+        sorted_dict = sorted(cos_sim_rate_dict.items(), key=lambda x: x[1], reverse=True)
+        return sorted_dict[0][0]
+
+    # def get_matched_villain_test(self, dataset, villainset):
+    #     cos_sim_rate_dict = {}
+
+    #     for vil in villainset:
+    #         villain_data = vil['words']
+    #         cos_sim_rate = self.get_cos_sim_rate(dataset, villain_data)
+    #         cos_sim_rate_dict[vil['name']] = cos_sim_rate
+        
+    #     sorted_dict = sorted(cos_sim_rate_dict.items(), key=lambda x: x[1], reverse=True)
+    #     return sorted_dict[0][0]
             
 
 sentiment_analyzer = SentimentAnalyzer()

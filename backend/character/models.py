@@ -9,9 +9,6 @@ class Character(models.Model):
     character_img_url = models.URLField('character img url', default='', null=True)
     mvti = models.CharField('mvti type', max_length=4, default='')
 
-    # def get_matched_character(self):
-    #     return villain
-
 
 class Sentiment(models.Model):
     name = models.CharField('sentiment name', max_length=100, null=True)

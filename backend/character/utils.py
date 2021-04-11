@@ -6,7 +6,7 @@ from nrclex import NRCLex
 from sklearn.preprocessing import MinMaxScaler
 
 
-def classify_emotion(self, data):
+def classify_emotion(data):
     emotion_list = []
 
     for word in data:
@@ -18,7 +18,7 @@ def classify_emotion(self, data):
     return emotion_list
 
 
-def sum_emotion(self, data):
+def sum_emotion(data):
     emotion_dict = {}
 
     for top_emo in data:
@@ -45,9 +45,9 @@ def standardize_data(data):
 
 
 def format_data(dataset):
-    words = self.classify_emotion(dataset)
-    emotion_sum = self.sum_emotion(words)
-    std_df = self.standardize_data(emotion_sum)
+    words = classify_emotion(dataset)
+    emotion_sum = sum_emotion(words)
+    std_df = standardize_data(emotion_sum)
 
     return std_df
 
