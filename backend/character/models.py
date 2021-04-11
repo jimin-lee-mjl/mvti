@@ -7,6 +7,10 @@ class Character(models.Model):
     name = models.CharField('character name', max_length=100)
     wc_url = models.URLField('wordcloud url')
     character_img_url = models.URLField('character img url', default='')
+    mvti = models.CharField('mvti type', max_length=4, default='')
+
+    # def get_matched_character(self):
+    #     return villain
 
 
 class Sentiment(models.Model):
