@@ -1,4 +1,4 @@
-FROM python:3.6.5
+FROM python:3.9.0
 
 ENV PYTHONBUFFERED 1
 
@@ -13,6 +13,7 @@ ADD requirements.txt /django/
 
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
+RUN python -m textblob.download_corpora
 
 
 ADD . /django/
