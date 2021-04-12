@@ -34,12 +34,12 @@ def sum_emotion(data):
 
 def standardize_data(data):
     emotions = pd.DataFrame({
-        'emotions': data
+        'sentiment': data
     })
     emo_values = emotions.to_numpy()
     scaler = MinMaxScaler().fit(emo_values)
     _data = scaler.transform(emo_values)
-    emotions['emotions'] = _data
+    emotions['sentiment'] = _data
 
     return emotions
 
