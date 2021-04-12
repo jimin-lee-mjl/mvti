@@ -7,7 +7,7 @@ from wordcloud import WordCloud
 from nltk.sentiment.vader import SentimentIntensityAnalyzer 
 from nrclex import NRCLex
 from sklearn.preprocessing import MinMaxScaler
-from temp import sentiment_analyzer
+# from temp import sentiment_analyzer
 from preprocessing.data import (
     Hans,
     HarleyQuinn,
@@ -216,14 +216,14 @@ def paint_char_info():
     for name, words in FILES.items():
         each_info = {}
 
-        sentiment_df = sentiment_analyzer.get_sentiment_df(words)
+        # sentiment_df = sentiment_analyzer.get_sentiment_df(words)
         sentiment = sentiment_df.to_dict()['emotions']
-        mvti_type = sentiment_analyzer.get_mvti_type(words)
+        # mvti_type = sentiment_analyzer.get_mvti_type(words)
         cos_dict = {}
         temp = FILES.copy()
         del temp[name]
         for char, data in temp.items():
-            cos_sim = sentiment_analyzer.get_cos_sim_rate(words, data)
+            # cos_sim = sentiment_analyzer.get_cos_sim_rate(words, data)
             cos_dict[char] = cos_sim
 
         sorted_dict = sorted(cos_dict.items(), key=lambda x: x[1])
