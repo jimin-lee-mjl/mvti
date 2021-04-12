@@ -20,7 +20,6 @@ from django.conf import settings
 
 from rest_framework import routers
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('character/', include('character.urls', namespace='character')),

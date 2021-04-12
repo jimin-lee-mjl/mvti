@@ -58,6 +58,18 @@ class SentimentAnalyzer():
         
     #     sorted_dict = sorted(cos_sim_rate_dict.items(), key=lambda x: x[1], reverse=True)
     #     return sorted_dict[0][0]
-            
+
+    def get_sentiment_graph(slef, dataset):
+        df = self.get_sentiment_df(user_data)
+
+        fig, ax = plt.subplots(figsize=(8, 6))
+        ax.bar(df.index, df['emotions'])
+        plt.tight_layout()
+        plt.title(name)
+        fig.savefig('user_emotion_graph.png', bbox_inches='tight')
+
+        # should return user graph image
+        return 'anyurl.com'
+        
 
 sentiment_analyzer = SentimentAnalyzer()
