@@ -1,4 +1,7 @@
+from django.urls import reverse
 from django.test import TestCase
+from rest_framework.test import APITestCase
+from rest_framework.views import status
 from .sentimentAnalyzer import sentiment_analyzer
 
 
@@ -19,3 +22,16 @@ class UserDataTestCase(TestCase):
     def test_get_mvti_type(self):
         mvti_type = sentiment_analyzer.get_mvti_type(self.user_data)
         self.assertEqual(mvti_type, 'PJTF')
+
+
+class SentimentAnalyzeTestCase(APITestCase):
+    def setUp(self):
+        self.url = reverse('sentiment')
+
+    def test_post_user_data(self):
+        data = {
+            'words': ['death', 'fear', 'kill', 'pray', 'god', 'hope', 'pretty']
+        }
+        response = self.client.post(self.url, data=data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
