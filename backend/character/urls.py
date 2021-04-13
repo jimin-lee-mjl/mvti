@@ -4,7 +4,7 @@ from rest_framework import routers
 from django.conf.urls import include
 
 router = routers.DefaultRouter()
-router.register('viewset', views.CharacterViewSet)
+router.register('character', views.CharacterViewSet)
 app_name = 'character'
 
 urlpatterns = [
