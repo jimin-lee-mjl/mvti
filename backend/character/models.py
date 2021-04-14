@@ -7,6 +7,10 @@ class Character(models.Model):
     name = models.CharField('character name', max_length=100)
     wc_url = models.URLField('wordcloud url')
     character_img_url = models.URLField('character img url', default='', null=True)
+    mvti = models.CharField('mvti type', max_length=4, default='')
+
+    def add_count(self):
+        self.count += 1
 
 
 class Sentiment(models.Model):

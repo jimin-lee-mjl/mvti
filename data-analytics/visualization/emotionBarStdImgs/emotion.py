@@ -1,7 +1,7 @@
 import nltk
 import pandas as pd
 import matplotlib.pyplot as plt
-import seaborn as sns
+# import seaborn as sns
 from collections import Counter
 from wordcloud import WordCloud
 from nltk.sentiment.vader import SentimentIntensityAnalyzer 
@@ -174,17 +174,18 @@ def draw_graph(data, name):
 
 def main():
     FILES = {
-        "Hans": Hans.words,
-        "Fletcher": Fletcher.words,
-        "Plankton": Plankton.words,
-        "Snowball": Snowball.words,
-        "HarleyQuinn": HarleyQuinn.words,
-        "Jigsaw": Jigsaw.words,
-        "Joker": Joker.words,
-        "Vader": Vader.words,
-        "Thanos": Thanos.words,
-        "HannibalLecter": HannibalLecter.words,
-        "JimMoriarty": JimMoriarty.words
+        # "Hans": Hans.words,
+        # "Fletcher": Fletcher.words,
+        # "Plankton": Plankton.words,
+        # "Snowball": Snowball.words,
+        # "HarleyQuinn": HarleyQuinn.words,
+        # "Jigsaw": Jigsaw.words,
+        # "Joker": Joker.words,
+        # "Vader": Vader.words,
+        # "Thanos": Thanos.words,
+        # "HannibalLecter": HannibalLecter.words,
+        # "JimMoriarty": JimMoriarty.words,
+        "Scar": Scar.words
     }
 
     for fn, words in FILES.items():
