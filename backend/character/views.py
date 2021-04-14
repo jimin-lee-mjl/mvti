@@ -10,4 +10,5 @@ from django.shortcuts import get_object_or_404
 
 class CharacterViewSet(viewsets.ModelViewSet):
     queryset = Character.objects.all()
+    lookup_field = "name"
     serializer_class = CharacterSerializer

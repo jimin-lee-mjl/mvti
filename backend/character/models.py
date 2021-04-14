@@ -5,29 +5,48 @@ from django.db import models
 
 class Character(models.Model):
     name = models.CharField('character name', max_length=100)
-    wc_url = models.URLField('wordcloud url')
+    wc_url = models.URLField('wordcloud url', null=True)
+    bar_url = models.URLField('barchart url', null=True)
     character_img_url = models.URLField('character img url', default='', null=True)
+    count = models.IntegerField('count', default=0, null=True)
+    rival = models.CharField('rival', max_length=100, null=True)
+    partner = models.CharField('partner', max_length=100, null=True)
+    MVTI_NSAF = 'NSAF'
+    MVTI_NSAA = 'NSAA'
+    MVTI_NSTF = 'NSTF'
+    MVTI_NSTA = 'NSTA'
+    MVTI_NJAF = 'NJAF'
+    MVTI_NJAA = 'NJAA'
+    MVTI_NJTF = 'NJTF'
+    MVTI_NJTA = 'NJTA'
+    MVTI_PSAF = 'PSAF'
+    MVTI_PSAA = 'PSAA'
+    MVTI_PSTF = 'PSTF'
+    MVTI_PSTA = 'PSTA'
+    MVTI_PJAF = 'PJAF'
+    MVTI_PJAA = 'PJAA'
+    MVTI_PJTF = 'PJTF'
+    MVTI_PJTA = 'PJTA'
+    CHOICES_MVTI = (
+        (MVTI_NSAF, 'NSAF'),
+        (MVTI_NSAA, 'NSAA'),
+        (MVTI_NSTF, 'NSTF'),
+        (MVTI_NSTA, 'NSTA'),
+        (MVTI_NJAF, 'NJAF'),
+        (MVTI_NJAA, 'NJAA'),
+        (MVTI_NJTF, 'NJTF'),
+        (MVTI_NJTA, 'NJTA'),
+        (MVTI_PSAF, 'PSAF'),
+        (MVTI_PSAA, 'PSAA'),
+        (MVTI_PSTF, 'PSTF'),
+        (MVTI_PSTA, 'PSTA'),
+        (MVTI_PJAF, 'PJAF'),
+        (MVTI_PJAA, 'PJAA'),
+        (MVTI_PJTF, 'PJTF'),
+        (MVTI_PJTA, 'PJTA')
+    )
+    mvti_type = models.CharField('MVTI_Type', choices=CHOICES_MVTI, null=True, max_length=12)
+    sentiment = models.JSONField('sentiment json', null=True)
 
-
-class Sentiment(models.Model):
-    name = models.CharField('sentiment name', max_length=100, null=True)
-
-
-class SentimentCharacter(models.Model):
-    character = models.ForeignKey(Character, on_delete=models.CASCADE, blank=True, null=True)
-    sentiment = models.ForeignKey(Sentiment, on_delete=models.CASCADE, blank=True, null=True)
-    rate = models.FloatField('rate', null=True)
-
-
-class Question(models.Model):
-    content = models.TextField('question_content', null=True)
-
-
-class Choice(models.Model):
-    question = models.ForeignKey(Question, on_delete=models.CASCADE, blank=True, null=True)
-    content = models.TextField('choice_content', null=True)
-
-
-class SentimentChoice(models.Model):
-    sentiment = models.ForeignKey(Sentiment, on_delete=models.CASCADE, blank=True, null=True)
-    choice = models.ForeignKey(Choice, on_delete=models.CASCADE, blank=True, null=True)
+    class Meta:
+        db_table = 'Characters'
