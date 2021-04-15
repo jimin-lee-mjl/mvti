@@ -50,3 +50,6 @@ class Character(models.Model):
 
     class Meta:
         db_table = 'Characters'
+
+    def add_count(self):
+        self.count += 1
