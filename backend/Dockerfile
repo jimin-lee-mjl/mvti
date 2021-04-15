@@ -12,6 +12,7 @@ WORKDIR /django
 ADD requirements.txt /django/
 
 RUN pip install --upgrade pip
+RUN python -m textblob.download_corpora
 RUN pip install -r requirements.txt
 
 
