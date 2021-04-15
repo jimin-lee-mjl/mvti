@@ -3,6 +3,7 @@ from django.test import TestCase
 from rest_framework.test import APITestCase
 from rest_framework.views import status
 from .sentimentAnalyzer import sentiment_analyzer
+from . import views
 
 
 class UserDataTestCase(TestCase):
@@ -26,11 +27,11 @@ class UserDataTestCase(TestCase):
 
 class SentimentAnalyzeTestCase(APITestCase):
     def setUp(self):
-        self.url = reverse('sentiment')
+        self.url = 'elice-kdt-ai-track-vm-da-05.koreacentral.cloudapp.azure.com/api/sentiment'
 
     def test_post_user_data(self):
         data = {
-            'words': ['death', 'fear', 'kill', 'pray', 'god', 'hope', 'pretty']
+            "words": ["death", "fear", "kill", "pray", "god", "hope", "pretty"]
         }
         response = self.client.post(self.url, data=data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)

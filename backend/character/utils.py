@@ -19,15 +19,22 @@ def classify_emotion(data):
 
 
 def sum_emotion(data):
-    emotion_dict = {}
+    emotion_dict = {
+        'anger': 0.0,
+        'anticipation': 0.0,
+        'disgust': 0.0,
+        'fear': 0.0,
+        'joy': 0.0,
+        'negative': 0.0,
+        'positive': 0.0,
+        'sadness': 0.0,
+        'surprise': 0.0,
+        'trust': 0.0,
+    }
 
     for top_emo in data:
         for emo in top_emo:
-            emotion = emotion_dict.get(emo[0])
-            if not emotion:
-                emotion_dict[emo[0]] = emo[1]
-            else:
-                emotion_dict[emo[0]] += emo[1]
+            emotion_dict[emo[0]] += emo[1]
 
     return emotion_dict
 

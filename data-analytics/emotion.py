@@ -65,15 +65,22 @@ def classify_emotion(data):
 
 # 감정 별 수치를 모두 합산 
 def sum_emotion(data):
-    emotion_dict = {}
+    emotion_dict = {
+        'anger': 0.0,
+        'anticipation': 0.0,
+        'disgust': 0.0,
+        'fear': 0.0,
+        'joy': 0.0,
+        'negative': 0.0,
+        'positive': 0.0,
+        'sadness': 0.0,
+        'surprise': 0.0,
+        'trust': 0.0,
+    }
 
     for top_emo in data:
         for emo in top_emo:
-            emotion = emotion_dict.get(emo[0])
-            if not emotion:
-                emotion_dict[emo[0]] = emo[1]
-            else:
-                emotion_dict[emo[0]] += emo[1]
+            emotion_dict[emo[0]] += emo[1]
 
     return emotion_dict
 
@@ -171,20 +178,33 @@ def draw_graph(data, name):
     fig.savefig(f'{name}_emotion_std.png',bbox_inches='tight')
 
 
+def standardize_data(data):
+    emotions = pd.DataFrame({
+        'sentiment': data
+    })
+    emo_values = emotions.to_numpy()
+    scaler = MinMaxScaler().fit(emo_values)
+    _data = scaler.transform(emo_values)
+    emotions['sentiment'] = _data
+
+    return emotions
+
+
 def export_bar_graph():
     FILES = {
-        "Hans": Hans.words,
-        "Fletcher": Fletcher.words,
-        "Plankton": Plankton.words,
-        "Snowball": Snowball.words,
-        "HarleyQuinn": HarleyQuinn.words,
-        "Jigsaw": Jigsaw.words,
-        "Joker": Joker.words,
-        "Vader": Vader.words,
-        "Thanos": Thanos.words,
-        "HannibalLecter": HannibalLecter.words,
-        "JimMoriarty": JimMoriarty.words,
-        "Scar": Scar.words
+        # "Hans": Hans.words,
+        # "Fletcher": Fletcher.words,
+        # "Plankton": Plankton.words,
+        # "Snowball": Snowball.words,
+        # "HarleyQuinn": HarleyQuinn.words,
+        # "Jigsaw": Jigsaw.words,
+        # "Joker": Joker.words,
+        # "Vader": Vader.words,
+        # "Thanos": Thanos.words,
+        # "HannibalLecter": HannibalLecter.words,
+        # "JimMoriarty": JimMoriarty.words,
+        # "Scar": Scar.words,
+        "Temp": ["dear", "smile", "honor", "pray", "god", "hope", "pretty"]
     }
 
     for fn, words in FILES.items():
@@ -192,7 +212,10 @@ def export_bar_graph():
         polar_list = get_polar(word_dict)
         emotion_list = classify_emotion(polar_list)
         emotion_dict = sum_emotion(emotion_list)
-        draw_graph(emotion_dict, fn)
+        std = standardize_data(emotion_dict)
+        print(std)
+
+export_bar_graph()
 
 
 def paint_char_info():
