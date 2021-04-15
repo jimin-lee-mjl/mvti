@@ -3,7 +3,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework import viewsets
 from .models import Character
-from .serializers import UserSerializer, CharacterSerializer
+from .serializers import UserSerializer, CharacterSerializer, SentimentSerializer
 from .sentimentAnalyzer import sentiment_analyzer
 
 
@@ -31,7 +31,7 @@ class SentimentAnalyzeView(APIView):
             # 각 타입 별 카운트 증가시키기
             sentiment_analyzer.add_count(matched)
 
-            character_serializer = CharacterSerializer({
+            character_serializer = SentimentSerializer({
                 'name': matched_villain.name,
                 'user_mvti': mvti_type,
                 'user_sentiment': user_sentiment,
