@@ -10,6 +10,6 @@ router.register('character', views.CharacterViewSet)
 
 
 urlpatterns = [
-    path('sentiment/', views.SentimentAnalyzeView.as_view()),
+    path('sentiment/', views.SentimentAnalyzeView.as_view(), name='sentiment'),
     path('', include(router.urls))
 ]

@@ -2,9 +2,9 @@ FROM python:3.9.0
 
 ENV PYTHONBUFFERED 1
 
-RUN apt-get update && \
-    apt-get -y install gcc mono-mcs && \
-    rm -rf /var/lib/apt/lists/*
+# RUN apt-get update && \
+#     apt-get -y install gcc mono-mcs && \
+#     rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /django
 WORKDIR /django
