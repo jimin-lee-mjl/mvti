@@ -3,6 +3,23 @@
 * {
   font-family: 'Do Hyeon', sans-serif;
 }
+
+html, body {
+  height: 100vh;
+  background-color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  min-height: 100vh;
+  text-align: center;
+}
+
+.slick-prev:before, 
+.slick-next:before {
+  color: black
+}
 /* .App {
   text-align: center;
 }

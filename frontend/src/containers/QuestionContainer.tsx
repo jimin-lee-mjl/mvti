@@ -1,6 +1,6 @@
-import React, { useState, useRef } from 'react';
-import QuestionHeader from '../components/sentiment_test/QuestionHeader';
-import Button from '@material-ui/core/Button';
+import React, { useState, useRef } from "react";
+import QuestionHeader from "../components/sentiment_test/QuestionHeader";
+import Button from "@material-ui/core/Button";
 
 type question = {
   number: number;
@@ -38,9 +38,9 @@ QuestionContainer.defaultProps = {
   questions: [
     {
       number: 1,
-      sentence: 'This is Example Question',
-      firstOption: 'yes',
-      secondOption: 'no',
+      sentence: "This is Example Question",
+      firstOption: "yes",
+      secondOption: "no",
     },
   ],
 };
