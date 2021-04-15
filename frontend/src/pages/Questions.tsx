@@ -1,11 +1,12 @@
 import React from "react";
+import PageTemplate from "../components/PageTemplate";
 import QuestionContainer from "../containers/QuestionContainer";
 
 const Questions = () => {
   return (
-    <div>
+    <PageTemplate>
       <QuestionContainer />
-    </div>
+    </PageTemplate>
   );
 };
 
