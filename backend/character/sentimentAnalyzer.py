@@ -44,7 +44,7 @@ class SentimentAnalyzer():
             villain_data = vil.sentiment
             cos_sim_rate = self.get_cos_sim_rate(dataset, villain_data)
             cos_sim_rate_dict[vil.name] = cos_sim_rate
-        
+
         sorted_dict = sorted(cos_sim_rate_dict.items(), key=lambda x: x[1], reverse=True)
         return sorted_dict[0][0]
 
@@ -60,7 +60,7 @@ class SentimentAnalyzer():
     #         villain_data = vil['words']
     #         cos_sim_rate = self.get_cos_sim_rate(dataset, villain_data)
     #         cos_sim_rate_dict[vil['name']] = cos_sim_rate
-        
+
     #     sorted_dict = sorted(cos_sim_rate_dict.items(), key=lambda x: x[1], reverse=True)
     #     return sorted_dict[0][0]
 

@@ -1,17 +1,24 @@
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
+from rest_framework import viewsets
 from .models import Character
 from .serializers import UserSerializer, CharacterSerializer
 from .sentimentAnalyzer import sentiment_analyzer
+
+
+class CharacterViewSet(viewsets.ModelViewSet):
+    queryset = Character.objects.all()
+    lookup_field = "name"
+    serializer_class = CharacterSerializer
 
 
 class SentimentAnalyzeView(APIView):
     def post(self, request, format=None):
         serializer = UserSerializer(data=request.data)
 
-        if serializers.is_valid():
-            user_data = serializers.validated_data['words']
+        if serializer.is_valid():
+            user_data = serializer.validated_data['words']
 
             matched = sentiment_analyzer.get_matched_villain(user_data)
             matched_villain = Character.objects.filter(
@@ -27,16 +34,15 @@ class SentimentAnalyzeView(APIView):
             character_serializer = CharacterSerializer({
                 'name': matched_villain.name,
                 'user_mvti': mvti_type,
-                'user_graph': user_graph,
                 'user_sentiment': user_sentiment,
                 'wc_url': matched_villain.wc_url,
                 'sentiment': matched_villain.sentiment,
                 'bar_url': matched_villain.bar_url,
-                'villain_mvti_type': matched_villain.mvti_type,
+                'mvti_type': matched_villain.mvti_type,
                 'rival': matched_villain.rival,
                 'partner': matched_villain.partner,
                 'count': matched_villain.count
             })
 
             return Response(character_serializer.data, status=status.HTTP_200_OK)
-        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
