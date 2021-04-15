@@ -9,7 +9,9 @@ const QuestionHeader = ({ question }: QuestionHeaderProps) => {
   return (
     <div>
       <h2>Q{number}</h2>
-      <div style={{ fontSize: "1.5rem", fontWeight: "lighter" }}>{sentence}</div>
+      <div style={{ fontSize: "1.5rem", fontWeight: "lighter", padding: "0px 50px 50px 50px" }}>
+        {sentence}
+      </div>
     </div>
   );
 };
