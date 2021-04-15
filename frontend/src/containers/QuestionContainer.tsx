@@ -27,6 +27,7 @@ const QuestionContainer = () => {
   ));
   return (
     <div>
+      <ProgressBar stepIndex={currentId.current} />
       <QuestionHeader question={question} />
       {sentenceItems}
     </div>
