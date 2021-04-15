@@ -26,7 +26,7 @@ const ResultContainer: React.FC<ResultContainerProps> = ({ history }) => {
 
   const classes = useStyles();
 
-  const resetTest = () => history.push("/index");
+  const resetTest = () => history.push("/");
   const detailResult = () => history.push("/detail");
   const shareResult = () => console.log("공유하기");
 
