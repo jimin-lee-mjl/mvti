@@ -60,8 +60,8 @@ CORS_ORIGIN_ALLOW_ALL = True
 #     'http://localhost:8000',  # Django 도메인
 #     'http://web:3000',  # React 도메인
 #     'http://web:8000',  # Django 도메인
-#     # 'http://http://elice-kdt-ai-track-vm-da-05.koreacentral.cloudapp.azure.com',  # Django 도메인
-#     # 'http://http://elice-kdt-ai-track-vm-da-05.koreacentral.cloudapp.azure.com:3000',  # React 도메인
+#     http://elice-kdt-ai-track-vm-da-05.koreacentral.cloudapp.azure.com',  # Django 도메인
+#     http://elice-kdt-ai-track-vm-da-05.koreacentral.cloudapp.azure.com:3000',  # React 도메인
 # )
 
 

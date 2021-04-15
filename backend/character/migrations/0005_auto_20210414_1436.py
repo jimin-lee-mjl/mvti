@@ -18,6 +18,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='character',
             name='mvti_type',
-            field=models.CharField(choices=[('NSAF', 'NSAF'), ('NSAA', 'NSAA'), ('NSTF', 'NSTF'), ('NSTA', 'NSTA'), ('NJAF', 'NJAF'), ('NJAA', 'NJAA'), ('NJTF', 'NJTF'), ('NJTA', 'NJTA'), ('PSAF', 'PSAF'), ('PSAA', 'PSAA'), ('PSTF', 'PSTF'), ('PSTA', 'PSTA'), ('PJAF', 'PJAF'), ('PJAA', 'PJAA'), ('PJTF', 'PJTF'), ('PJTA', 'PJTA')], max_length=12, null=True, verbose_name='MVTI_Type'),
+            field=models.CharField(choices=[('NSAF', 'NSAF'), ('NSAA', 'NSAA'), ('NSTF', 'NSTF'), ('NSTA', 'NSTA'), ('NJAF', 'NJAF'), ('NJAA', 'NJAA'), ('NJTF', 'NJTF'), ('NJTA', 'NJTA'), ('PSAF', 'PSAF'), (
+                'PSAA', 'PSAA'), ('PSTF', 'PSTF'), ('PSTA', 'PSTA'), ('PJAF', 'PJAF'), ('PJAA', 'PJAA'), ('PJTF', 'PJTF'), ('PJTA', 'PJTA')], max_length=12, null=True, verbose_name='MVTI_Type'),
         ),
     ]

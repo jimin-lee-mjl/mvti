@@ -39,7 +39,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='character',
             name='mvti_type',
-            field=models.CharField(choices=[('negative', '긍정형'), ('postive', '부정형'), ('sadness', '비애형'), ('joy', '쾌락형'), ('anger', '분노형'), ('trust', '신뢰형'), ('fear', '근심형'), ('anticipation', '기대형')], max_length=12, null=True, verbose_name='MVTI_Type'),
+            field=models.CharField(choices=[('negative', '긍정형'), ('postive', '부정형'), ('sadness', '비애형'), ('joy', '쾌락형'), ('anger', '분노형'),
+                                   ('trust', '신뢰형'), ('fear', '근심형'), ('anticipation', '기대형')], max_length=12, null=True, verbose_name='MVTI_Type'),
         ),
         migrations.AddField(
             model_name='character',
