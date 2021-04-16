@@ -69,7 +69,9 @@
   },
   "devDependencies": {
     "@types/chart.js": "^2.9.32",
+    "@types/fg-loadcss": "^3.1.1",
     "@types/react-slick": "^0.23.4",
+    "fg-loadcss": "^3.1.0",
     "prettier": "2.2.1"
   },
   "proxy": "http://elice-kdt-ai-track-vm-da-05.koreacentral.cloudapp.azure.com:8000"
