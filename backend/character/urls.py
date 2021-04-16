@@ -4,9 +4,12 @@ from rest_framework import routers
 from django.conf.urls import include
 
 router = routers.DefaultRouter()
-router.register('character', views.CharacterViewSet)
 app_name = 'character'
 
+router.register('character', views.CharacterViewSet)
+
+
 urlpatterns = [
+    path('sentiment/', views.SentimentAnalyzeView.as_view(), name='sentiment'),
     path('', include(router.urls))
 ]
