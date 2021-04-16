@@ -16,7 +16,7 @@ const Loading = ({ success }: LoadingProps) => {
   //   });
   return (
     <div>
-      <CircularProgress color='secondary' />
+      <CircularProgress style={{ color: "#c33764" }} />
       <h1>빌런 매칭을 진행중입니다{comma}</h1>
     </div>
   );
