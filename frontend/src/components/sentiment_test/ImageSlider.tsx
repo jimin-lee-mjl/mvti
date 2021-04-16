@@ -18,7 +18,7 @@ const imageList = [
 
 const ImageSlider = () => {
   const [settings, setSettings] = useState({
-    dots: true,
+    dots: window.innerWidth > 420 ? true : false,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
