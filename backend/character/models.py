@@ -47,6 +47,7 @@ class Character(models.Model):
     )
     mvti_type = models.CharField('MVTI_Type', choices=CHOICES_MVTI, null=True, max_length=12)
     sentiment = models.JSONField('sentiment json', null=True)
+    best_talk = models.CharField('best_talk', null=True, max_length=100)
 
     class Meta:
         db_table = 'Characters'
