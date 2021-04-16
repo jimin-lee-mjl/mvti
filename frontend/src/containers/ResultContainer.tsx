@@ -23,6 +23,9 @@ type ResultContainerProps = RouteComponentProps<any>;
 // }));
 
 const ResultContainer = ({ history }: ResultContainerProps) => {
+  console.log("가져왔다!");
+  const data = JSON.parse(sessionStorage.getItem("data") || "{}")[0];
+  console.log(data);
   const [imgUrl, setImgUrl] = useState<string>();
   const [name, setName] = useState<string>();
   const [quotes, setQuotes] = useState<string>();
@@ -57,11 +60,16 @@ const ResultContainer = ({ history }: ResultContainerProps) => {
 
   return (
     <Grid item xs={12}>
-      <Profile />
+      <Profile
+        name={data.name}
+        script={data.best_talk}
+        mvti={data.mvti_type}
+        imgurl={data.character_img_url}
+      />
       <br />
-      <Counter />
-      <Result />
-      <VillainRelation />
+      <Counter cnt={data.count} type={data.count} />
+      <Result url={data.wc_url} />
+      <VillainRelation partner={data.partner} rival={data.rival} />
       <Button variant='contained' color='primary' onClick={resetTest}>
         다시하기
       </Button>
