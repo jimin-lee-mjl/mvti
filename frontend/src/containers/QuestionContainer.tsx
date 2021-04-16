@@ -59,7 +59,7 @@ const QuestionContainer = ({ history }: QuestionContainerProps) => {
           </Grid>
         ));
   return (
-    <div>
+    <Grid item>
       {results.length === 10 ? (
         <>
           <Loading />
@@ -70,7 +70,7 @@ const QuestionContainer = ({ history }: QuestionContainerProps) => {
         </>
       )}
       {sentenceItems}
-    </div>
+    </Grid>
   );
 };
 

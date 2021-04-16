@@ -7,13 +7,13 @@ const imageList = [
   "https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F660719af-8a20-4bfd-b459-d2d2a02bb4d0%2FUntitled.png?table=block&id=449baf43-ba5e-44b8-a9e8-795d8fe654d6&width=1510&userId=479b5c03-3ace-4f65-938c-026795f1021d&cache=v2",
   "https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F0d2a8fa4-c807-41a0-acef-6984bdacdc26%2FUntitled.png?table=block&id=e1af9839-59a8-4da7-83ad-a7a228c6f84f&width=1020&userId=479b5c03-3ace-4f65-938c-026795f1021d&cache=v2",
   "https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fde57c919-b9b8-4a10-a5da-f27974a86376%2FUntitled.png?table=block&id=291baaa2-1505-4fa0-b089-657a238f8437&width=1020&userId=479b5c03-3ace-4f65-938c-026795f1021d&cache=v2",
-  "https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fb7439e9e-fc74-452f-b605-08535cdefebb%2FUntitled.png?table=block&id=7b108a0f-0746-4245-a86a-c908423d1775&width=900&userId=479b5c03-3ace-4f65-938c-026795f1021d&cache=v2",
+  "https://t1.daumcdn.net/cfile/tistory/990FD4425D28595303",
   "https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F37481d0e-cecb-4c90-9273-09c202ea95a4%2Fthanos.jpg?table=block&id=87b2e024-029e-4d80-b3a2-8c362717e726&width=1520&userId=479b5c03-3ace-4f65-938c-026795f1021d&cache=v2",
   "https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F4c52531f-cc56-4892-8017-921cbf646bea%2Fstarwars.jpg?table=block&id=d181eb75-8d32-4632-b2a0-424e2d4f6610&width=950&userId=479b5c03-3ace-4f65-938c-026795f1021d&cache=v2",
   "https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Ffbac66f2-e649-43d4-8993-f62ba6bad155%2Fhannibal.jpg?table=block&id=f9467575-49ce-40e7-a4fa-60c09bd7b7d6&width=1300&userId=479b5c03-3ace-4f65-938c-026795f1021d&cache=v2",
   "https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fd72e31d0-4fee-4a00-83ef-996e34c573fd%2Fscar.jpg?table=block&id=ff6dec7c-be78-4cc6-b340-25cb0c7b30f3&width=1340&userId=479b5c03-3ace-4f65-938c-026795f1021d&cache=v2",
   "https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fddd00567-6401-40ab-bd57-fdb79ac571d6%2Fharleyquinn.jpg?table=block&id=8a3d913d-7d8f-49ce-96dd-9cb7e8a3608f&width=1160&userId=479b5c03-3ace-4f65-938c-026795f1021d&cache=v2",
-  "https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F0c4d0fc4-c34a-4e26-bdac-c6674879a779%2Fmoriarty.jpg?table=block&id=977a91e9-04cb-4f38-b1bf-bd80f59622be&width=2200&userId=479b5c03-3ace-4f65-938c-026795f1021d&cache=v2",
+  "https://lh3.googleusercontent.com/proxy/JjJJapm7AZEPt_N1Gfu-fUD2CqKPDzZ5Nh754hSVDX-TZkHtuqh0XWLZvvp71aj9UyuS1Nwk5VB7-Hao5KaOWNPrH7OEHPt1E_Q-7BZP_od7QXIfqAh8Osu823vWbxAlatdotsi8GGJqbPezd7RwWdgQp1c-HSmUEu-uRdDf0rvS-PvSMTjpVl7e6A",
 ];
 
 const ImageSlider = () => {
