@@ -1,4 +1,4 @@
-version: "3.7"
+version: "3.5"
 services:
   frontend:
     build:
@@ -9,4 +9,4 @@ services:
       - ./:/frontend
     ports:
       - "80:80"
-    stdin_open: true
+        #    stdin_open: true
