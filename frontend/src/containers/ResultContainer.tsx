@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ResultContainer: React.FC<ResultContainerProps> = ({ history }) => {
+const ResultContainer = ({ history }: ResultContainerProps) => {
   const [imgUrl, setImgUrl] = useState<string>();
   const [name, setName] = useState<string>();
   const [quotes, setQuotes] = useState<string>();

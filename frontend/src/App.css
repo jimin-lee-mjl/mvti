@@ -11,6 +11,10 @@ html, body {
   padding: 0;
 }
 
+a {
+  text-decoration: none;
+}
+
 #root {
   min-height: 100vh;
   text-align: center;
@@ -30,4 +34,10 @@ html, body {
   border-image: linear-gradient(to right, #c33764, #1d2671);
   border-image-slice: 1;
   border-image-width: 0 0 20px 0;
+}
+
+.mvti {
+  background: linear-gradient(to right, #c33764, #1d2671);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
