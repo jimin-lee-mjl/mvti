@@ -4,13 +4,12 @@ import { Radar } from "react-chartjs-2";
 import WordCloud from "wordcloud";
 
 type ResultProps = {
-  url: string;
+  url?: string;
   sdata?: Array<number>;
+  type: number;
 };
 
-const Result = ({ url, sdata }: ResultProps) => {
-  const myCanvas = useRef<HTMLCanvasElement>(null);
-  const div = useRef<HTMLDivElement>(null);
+const Result = ({ url, sdata, type }: ResultProps) => {
   const data = {
     labels: [
       "anger",
@@ -26,7 +25,7 @@ const Result = ({ url, sdata }: ResultProps) => {
     ],
     datasets: [
       {
-        label: "Sentiment",
+        label: "Villain Sentiment",
         backgroundColor: "rgba(29, 38, 113, 0.2)",
         borderColor: "rgba(29, 38, 113, 1)",
         pointBackgroundColor: "rgba(29, 38, 113, 1)",
@@ -35,25 +34,51 @@ const Result = ({ url, sdata }: ResultProps) => {
         pointHoverBorderColor: "rgba(29, 38, 113, 1)",
         data: sdata,
       },
-      // {
-      //   label: "My Second dataset",
-      //   backgroundColor: "rgba(255,99,132,0.2)",
-      //   borderColor: "rgba(255,99,132,1)",
-      //   pointBackgroundColor: "rgba(255,99,132,1)",
-      //   pointBorderColor: "#fff",
-      //   pointHoverBackgroundColor: "#fff",
-      //   pointHoverBorderColor: "rgba(255,99,132,1)",
-      //   data: [28, 48, 40, 19, 96, 27, 100],
-      // },
     ],
   };
 
+  const tdata = {
+    labels: [
+      "anger",
+      "anticipation",
+      "disgust",
+      "fear",
+      "joy",
+      "negative",
+      "positive",
+      "sadness",
+      "surprise",
+      "trust",
+    ],
+    datasets: [
+      {
+        label: "Villain Sentiment",
+        backgroundColor: "rgba(29, 38, 113, 0.2)",
+        borderColor: "rgba(29, 38, 113, 1)",
+        pointBackgroundColor: "rgba(29, 38, 113, 1)",
+        pointBorderColor: "#fff",
+        pointHoverBackgroundColor: "#fff",
+        pointHoverBorderColor: "rgba(29, 38, 113, 1)",
+        data: [10, 90, 23, 19, 20, 2, 100],
+      },
+      {
+        label: "My Sentiment",
+        backgroundColor: "rgba(195, 55, 100,0.2)",
+        borderColor: "rgba(195, 55, 100,1)",
+        pointBackgroundColor: "rgba(195, 55, 100,1)",
+        pointBorderColor: "#fff",
+        pointHoverBackgroundColor: "#fff",
+        pointHoverBorderColor: "rgba(195, 55, 100,1)",
+        data: [28, 48, 40, 19, 96, 27, 100],
+      },
+    ],
+  };
   return (
     <>
       <Grid item xs={12}>
         <p>감정 분석표</p>
         <Radar
-          data={data}
+          data={type === 1 ? data : tdata}
           width={600}
           height={300}
           options={{
@@ -62,11 +87,13 @@ const Result = ({ url, sdata }: ResultProps) => {
           }}
         />
       </Grid>
-      <Grid item xs={12}>
-        <p>Word Cloud</p>
-        <img src={url} style={{ width: "100%", objectFit: "cover" }} />
-        {/* <canvas ref={myCanvas}></canvas> */}
-      </Grid>
+      {type === 1 ? (
+        <Grid item xs={12}>
+          <p>Word Cloud</p>
+          <img src={url} style={{ width: "100%", objectFit: "cover" }} />
+          {/* <canvas ref={myCanvas}></canvas> */}
+        </Grid>
+      ) : null}
     </>
   );
 };
@@ -74,6 +101,7 @@ const Result = ({ url, sdata }: ResultProps) => {
 Result.defaultProps = {
   url:
     "https://kdt-gitlab.elice.io/001-part3-moviecharacter/team5/project-MVTI/-/raw/master/data-analytics/visualization/wordCloudImgs/Fletcher.png",
+  type: 0,
 };
 
 export default Result;

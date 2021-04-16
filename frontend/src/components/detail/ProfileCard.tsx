@@ -42,8 +42,13 @@ const ProfileCard = ({ name, imgurl }: ProfileCardProps) => {
       </CardActionArea>
       <CardActions style={{ display: "block", margin: 0 }}>
         <Button size='small' color='primary'>
-          <Link to={`/detail/${name}`} style={{ fontSize: "1.5rem" }}>
-            🔍
+          <Link
+            to={`/detail/${name}`}
+            type='button'
+            className='MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary'
+          >
+            <span className='MuiButton-label'>자세히 보기 🔍</span>
+            <span className='MuiTouchRipple-root'></span>
           </Link>
         </Button>
       </CardActions>

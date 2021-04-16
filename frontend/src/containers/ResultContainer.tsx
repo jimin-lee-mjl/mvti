@@ -7,8 +7,12 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 
 import ResultHeader from "../components/sentiment_test/ResultHeader";
+import Counter from "../components/sentiment_test/Counter";
+import Profile from "../components/detail/Profile";
+import VillainRelation from "../components/sentiment_test/VillainRelation";
+import Result from "../components/detail/Result";
 
-type ResultContainerProps = RouteComponentProps;
+type ResultContainerProps = RouteComponentProps<any>;
 
 const useStyles = makeStyles((theme) => ({
   color: {
@@ -27,13 +31,16 @@ const ResultContainer = ({ history }: ResultContainerProps) => {
   const classes = useStyles();
 
   const resetTest = () => history.push("/");
-  const detailResult = () => history.push("/detail");
+  const detailResult = () => history.push(`/introduce`);
   const shareResult = () => console.log("공유하기");
 
   return (
-    <Grid item>
-      <ResultHeader imgUrl={imgUrl} quotes={quotes} name={name} />
+    <Grid item xs={12}>
+      <Profile />
       <br />
+      <Counter />
+      <Result />
+      <VillainRelation />
       <Button variant='contained' color='primary' onClick={resetTest}>
         다시하기
       </Button>

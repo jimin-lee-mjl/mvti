@@ -1,5 +1,6 @@
 import React from "react";
 import Loading from "./Loading";
+import { Grid } from "@material-ui/core";
 
 type ResultHeaderProps = {
   name: string;
@@ -10,12 +11,17 @@ type ResultHeaderProps = {
 const ResultHeader = ({ name, imgUrl, quotes }: ResultHeaderProps) => {
   return (
     <div style={{ textAlign: "center" }}>
-      <Loading />
       <div>
         <h1 className='villain-name bottom'>{name}</h1>
       </div>
       <div>{/* <img src={imgUrl} style={{ objectFit: "cover" }} /> */}</div>
-      <div>{quotes}</div>
+      <Grid
+        item
+        xs={12}
+        style={{ verticalAlign: "center", fontSize: "2rem", fontWeight: "bold", textAlign: "center" }}
+      >
+        {quotes}
+      </Grid>
     </div>
   );
 };

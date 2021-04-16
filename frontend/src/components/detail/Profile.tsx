@@ -32,7 +32,7 @@ const Profile = ({ name, script, mvti, imgurl }: ProfileProps) => {
   //   acc
   // })
   return (
-    <>
+    <Grid item xs={12}>
       <h1 className='villain-name bottom'>{name}</h1>
       <h2 className='mvti'>{mvti}</h2>
       <Grid item xs={12}>
@@ -45,7 +45,7 @@ const Profile = ({ name, script, mvti, imgurl }: ProfileProps) => {
       >
         {script}
       </Grid>
-    </>
+    </Grid>
   );
 };
 

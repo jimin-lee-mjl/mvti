@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { RouteComponentProps, withRouter, Redirect } from "react-router";
 
 import axios from "axios";
-import Button from "@material-ui/core/Button";
+import { Grid, Button } from "@material-ui/core";
 
 import Loading from "../components/sentiment_test/Loading";
 import QuestionHeader from "../components/sentiment_test/QuestionHeader";
@@ -22,11 +22,14 @@ const QuestionContainer = ({ history }: QuestionContainerProps) => {
       const data = { words: results };
       axios({
         method: "post",
-        url: "http://elice-kdt-ai-track-vm-da-05.koreacentral.cloudapp.azure.com:8000/api/sentiment/",
+        url: "/api/sentiment/",
         data,
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE, OPTIONS",
+          "Access-Control-Allow-Headers": "*",
+          "Access-Control-Max-Age": 86400,
         },
       }).then((res) => {
         console.log("전송 성공");
@@ -48,12 +51,12 @@ const QuestionContainer = ({ history }: QuestionContainerProps) => {
     currentId.current >= 10
       ? []
       : questionList["questionList"][currentId.current]["options"].map((option: Array<string>) => (
-          <>
+          <Grid container direction='column' justify='flex-start' alignItems='center'>
             <Button variant='contained' color='primary' onClick={() => changeQuestion(option[0])}>
               {option[1]}
             </Button>
             &nbsp;
-          </>
+          </Grid>
         ));
   return (
     <div>
