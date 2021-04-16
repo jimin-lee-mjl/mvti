@@ -55,14 +55,17 @@ MIDDLEWARE = [
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-# CORS_ORIGIN_WHITELIST = (
-#     'http://localhost:3000',  # React 도메인
-#     'http://localhost:8000',  # Django 도메인
-#     'http://web:3000',  # React 도메인
-#     'http://web:8000',  # Django 도메인
-#     http://elice-kdt-ai-track-vm-da-05.koreacentral.cloudapp.azure.com',  # Django 도메인
-#     http://elice-kdt-ai-track-vm-da-05.koreacentral.cloudapp.azure.com:3000',  # React 도메인
-# )
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:3000',  # React 도메인
+    'http://localhost:8000',  # Django 도메인
+    'http://localhost',  # Django 도메인
+    'http://web:3000',  # React 도메인
+    'http://web:8000',  # Django 도메인
+    'http://web',  # Django 도메인
+    'http://elice-kdt-ai-track-vm-da-05.koreacentral.cloudapp.azure.com',  # Django 도메인
+    'http://elice-kdt-ai-track-vm-da-05.koreacentral.cloudapp.azure.com:3000',  # React 도메인
+    'http://elice-kdt-ai-track-vm-da-05.koreacentral.cloudapp.azure.com:8000',  # React 도메인
+)
 
 
 ROOT_URLCONF = 'movie_project.urls'
