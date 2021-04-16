@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Profile from "../components/detail/Profile";
 import Result from "../components/detail/Result";
+import PageTemplate from "../components/PageTemplate";
 import axios from "axios";
 
 type DetailProps = {};
@@ -23,10 +24,10 @@ const Detail = ({}: DetailProps) => {
     }
   });
   return (
-    <div>
+    <PageTemplate>
       <Profile />
       <Result />
-    </div>
+    </PageTemplate>
   );
 };
 
