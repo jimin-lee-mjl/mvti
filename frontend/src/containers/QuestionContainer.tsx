@@ -33,7 +33,10 @@ const QuestionContainer = ({ history }: QuestionContainerProps) => {
         },
       }).then((res) => {
         console.log("전송 성공");
-        history.push({ pathname: "/result", state: { data: res.data } });
+        const data = [res.data];
+        sessionStorage.setItem("data", JSON.stringify(data));
+        console.log("보냈다!");
+        history.push("/result");
       });
     }
   }, [results.length]);
