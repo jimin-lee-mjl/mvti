@@ -41,7 +41,8 @@ class SentimentAnalyzeView(APIView):
                 'mvti_type': matched_villain.mvti_type,
                 'rival': matched_villain.rival,
                 'partner': matched_villain.partner,
-                'count': matched_villain.count
+                'count': matched_villain.count,
+                'character_img_url': matched_villain.character_img_url
             })
 
             return Response(character_serializer.data, status=status.HTTP_200_OK)

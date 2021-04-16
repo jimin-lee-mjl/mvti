@@ -19,4 +19,4 @@ class SentimentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Character
         fields = ['name', 'user_mvti', 'user_sentiment', 'wc_url', 'sentiment',
-                  'bar_url', 'mvti_type', 'rival', 'partner', 'count']
+                  'bar_url', 'mvti_type', 'rival', 'partner', 'count', 'character_img_url']
