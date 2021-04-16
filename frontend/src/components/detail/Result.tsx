@@ -9,20 +9,22 @@ type ResultProps = {
   type: number;
 };
 
+const labels = [
+  "anger",
+  "anticipation",
+  "disgust",
+  "fear",
+  "joy",
+  "negative",
+  "positive",
+  "sadness",
+  "surprise",
+  "trust",
+];
+
 const Result = ({ url, sdata, type }: ResultProps) => {
   const data = {
-    labels: [
-      "anger",
-      "anticipation",
-      "disgust",
-      "fear",
-      "joy",
-      "negative",
-      "positive",
-      "sadness",
-      "surprise",
-      "trust",
-    ],
+    labels,
     datasets: [
       {
         label: "Villain Sentiment",
@@ -38,18 +40,7 @@ const Result = ({ url, sdata, type }: ResultProps) => {
   };
 
   const tdata = {
-    labels: [
-      "anger",
-      "anticipation",
-      "disgust",
-      "fear",
-      "joy",
-      "negative",
-      "positive",
-      "sadness",
-      "surprise",
-      "trust",
-    ],
+    labels,
     datasets: [
       {
         label: "Villain Sentiment",
