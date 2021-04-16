@@ -9,7 +9,10 @@ axios.defaults.headers["Access-Control-Allow-Origin"] = "*";
 const getVillains = () =>
   axios({
     method: "get",
-    url: "/api/character",
+    url: "http://elice-kdt-ai-track-vm-da-05.koreacentral.cloudapp.azure.com:8000/api/character",
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
   });
 
 const IntroContainer = () => {
@@ -26,7 +29,7 @@ const IntroContainer = () => {
     <>
       <Grid item xs={12}>
         <h2>MVTI의 서비스는..?</h2>
-        <p>우리 서비스는 영화 빌런들의 대사에 대한 감정 분석 결과를 토대로 심리테스트를 만들었습닏.</p>
+        <p>영화 빌런들의 대사에 대한 감정 분석 결과를 토대로 만들어진 심리테스트입니다.</p>
         {villains.map((v: any) => (
           <ProfileCard key={v.id} name={v.name} imgurl={v.character_img_url} />
         ))}
