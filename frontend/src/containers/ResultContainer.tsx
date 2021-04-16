@@ -26,49 +26,24 @@ const ResultContainer: React.FC<ResultContainerProps> = ({ history }) => {
 
   const classes = useStyles();
 
-  const resetTest = () => history.push("/index");
+  const resetTest = () => history.push("/");
   const detailResult = () => history.push("/detail");
   const shareResult = () => console.log("공유하기");
 
   return (
-    <div>
-      <Grid container spacing={10} className={classes.color}>
-        <Grid item xs />
-        <Grid item xs={6}>
-          <Box
-            width='100%'
-            height='90%'
-            justifyContent='center'
-            boxShadow={3}
-            mt={5}
-            p={3}
-            className={classes.boxColor}
-          >
-            <ResultHeader imgUrl={imgUrl} quotes={quotes} name={name} />
-            <br />
-            <Box textAlign='center' mt={3}>
-              <Button variant='contained' color='primary' onClick={resetTest}>
-                다시하기
-              </Button>
-              <br />
-              <br />
-              <Button variant='contained' color='primary' onClick={detailResult}>
-                상세보기
-              </Button>
-              <br />
-              <br />
-              <Button variant='contained' color='primary' onClick={shareResult}>
-                공유하기
-              </Button>
-            </Box>
-            <Box textAlign='center' mt={5}>
-              Movie Villain Type Indicator
-            </Box>
-          </Box>
-        </Grid>
-        <Grid item xs />
-      </Grid>
-    </div>
+    <Grid item>
+      <ResultHeader imgUrl={imgUrl} quotes={quotes} name={name} />
+      <br />
+      <Button variant='contained' color='primary' onClick={resetTest}>
+        다시하기
+      </Button>
+      <Button variant='contained' color='primary' onClick={detailResult}>
+        상세보기
+      </Button>
+      <Button variant='contained' color='primary' onClick={shareResult}>
+        공유하기
+      </Button>
+    </Grid>
   );
 };
 

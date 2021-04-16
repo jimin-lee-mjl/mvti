@@ -1,4 +1,5 @@
 import React from "react";
+import Loading from "./Loading";
 
 type ResultHeaderProps = {
   name: string;
@@ -9,12 +10,11 @@ type ResultHeaderProps = {
 const ResultHeader = ({ name, imgUrl, quotes }: ResultHeaderProps) => {
   return (
     <div style={{ textAlign: "center" }}>
+      <Loading />
       <div>
-        <h1>{name}</h1>
+        <h1 className='villain-name bottom'>{name}</h1>
       </div>
-      <div>
-        <img src={imgUrl} style={{ objectFit: "cover" }} />
-      </div>
+      <div>{/* <img src={imgUrl} style={{ objectFit: "cover" }} /> */}</div>
       <div>{quotes}</div>
     </div>
   );
