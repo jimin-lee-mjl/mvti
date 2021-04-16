@@ -1,67 +1,73 @@
 import React, { useState, useEffect, useRef } from "react";
+import { Grid } from "@material-ui/core";
 import { Radar } from "react-chartjs-2";
 import WordCloud from "wordcloud";
 
 type ResultProps = {
   url: string;
+  sdata?: Array<number>;
 };
 
-const data = {
-  labels: ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"],
-  datasets: [
-    {
-      label: "My First dataset",
-      backgroundColor: "rgba(179,181,198,0.2)",
-      borderColor: "rgba(179,181,198,1)",
-      pointBackgroundColor: "rgba(179,181,198,1)",
-      pointBorderColor: "#fff",
-      pointHoverBackgroundColor: "#fff",
-      pointHoverBorderColor: "rgba(179,181,198,1)",
-      data: [65, 59, 90, 81, 56, 55, 40],
-    },
-    {
-      label: "My Second dataset",
-      backgroundColor: "rgba(255,99,132,0.2)",
-      borderColor: "rgba(255,99,132,1)",
-      pointBackgroundColor: "rgba(255,99,132,1)",
-      pointBorderColor: "#fff",
-      pointHoverBackgroundColor: "#fff",
-      pointHoverBorderColor: "rgba(255,99,132,1)",
-      data: [28, 48, 40, 19, 96, 27, 100],
-    },
-  ],
-};
-
-const Result = ({ url }: ResultProps) => {
+const Result = ({ url, sdata }: ResultProps) => {
   const myCanvas = useRef<HTMLCanvasElement>(null);
-  useEffect(() => {
-    if (myCanvas.current)
-      WordCloud(myCanvas.current, {
-        list: [
-          ["foo", 12],
-          ["bar", 6],
-        ],
-        weightFactor: 5,
-        fontFamily: "Times, serif",
-        color: function (word, weight) {
-          return weight === 12 ? "#f02222" : "#c09292";
-        },
-        rotateRatio: 0.5,
-        backgroundColor: "#ffe0e0",
-        wait: 500,
-      });
-  });
+  const div = useRef<HTMLDivElement>(null);
+  const data = {
+    labels: [
+      "anger",
+      "anticipation",
+      "disgust",
+      "fear",
+      "joy",
+      "negative",
+      "positive",
+      "sadness",
+      "surprise",
+      "trust",
+    ],
+    datasets: [
+      {
+        label: "Sentiment",
+        backgroundColor: "rgba(29, 38, 113, 0.2)",
+        borderColor: "rgba(29, 38, 113, 1)",
+        pointBackgroundColor: "rgba(29, 38, 113, 1)",
+        pointBorderColor: "#fff",
+        pointHoverBackgroundColor: "#fff",
+        pointHoverBorderColor: "rgba(29, 38, 113, 1)",
+        data: sdata,
+      },
+      // {
+      //   label: "My Second dataset",
+      //   backgroundColor: "rgba(255,99,132,0.2)",
+      //   borderColor: "rgba(255,99,132,1)",
+      //   pointBackgroundColor: "rgba(255,99,132,1)",
+      //   pointBorderColor: "#fff",
+      //   pointHoverBackgroundColor: "#fff",
+      //   pointHoverBorderColor: "rgba(255,99,132,1)",
+      //   data: [28, 48, 40, 19, 96, 27, 100],
+      // },
+    ],
+  };
+
   return (
-    <div>
-      <div>
+    <>
+      <Grid item xs={12}>
+        <p>감정 분석표</p>
+        <Radar
+          data={data}
+          width={600}
+          height={300}
+          options={{
+            responsive: true,
+            maintainAspectRatio: false,
+          }}
+        />
+      </Grid>
+      <Grid item xs={12}>
         <p>Word Cloud</p>
-        {/* <img src={url} /> */}
-        <canvas ref={myCanvas}></canvas>
-      </div>
-      <div>
-        <Radar data={data} />
-      </div>
-    </div>
+        <img src={url} style={{ width: "100%", objectFit: "cover" }} />
+        {/* <canvas ref={myCanvas}></canvas> */}
+      </Grid>
+    </>
   );
 };
 
