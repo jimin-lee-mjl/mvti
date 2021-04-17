@@ -6,6 +6,7 @@ import WordCloud from "wordcloud";
 type ResultProps = {
   url?: string;
   sdata?: Array<number>;
+  udata?: Array<number>;
   type: number;
 };
 
@@ -22,7 +23,7 @@ const labels = [
   "trust",
 ];
 
-const Result = ({ url, sdata, type }: ResultProps) => {
+const Result = ({ url, sdata, udata, type }: ResultProps) => {
   const data = {
     labels,
     datasets: [
@@ -50,7 +51,7 @@ const Result = ({ url, sdata, type }: ResultProps) => {
         pointBorderColor: "#fff",
         pointHoverBackgroundColor: "#fff",
         pointHoverBorderColor: "rgba(29, 38, 113, 1)",
-        data: [10, 90, 23, 19, 20, 2, 100],
+        data: sdata,
       },
       {
         label: "My Sentiment",
@@ -60,10 +61,11 @@ const Result = ({ url, sdata, type }: ResultProps) => {
         pointBorderColor: "#fff",
         pointHoverBackgroundColor: "#fff",
         pointHoverBorderColor: "rgba(195, 55, 100,1)",
-        data: [28, 48, 40, 19, 96, 27, 100],
+        data: udata,
       },
     ],
   };
+  console.log(tdata);
   return (
     <>
       <Grid item xs={12}>
@@ -93,6 +95,8 @@ Result.defaultProps = {
   url:
     "https://kdt-gitlab.elice.io/001-part3-moviecharacter/team5/project-MVTI/-/raw/master/data-analytics/visualization/wordCloudImgs/Fletcher.png",
   type: 0,
+  sdata: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  udata: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 };
 
 export default Result;

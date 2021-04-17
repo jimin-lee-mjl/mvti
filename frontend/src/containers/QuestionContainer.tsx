@@ -33,7 +33,10 @@ const QuestionContainer = ({ history }: QuestionContainerProps) => {
         },
       }).then((res) => {
         console.log("전송 성공");
-        history.push({ pathname: "/result", state: { data: res.data } });
+        const data = [res.data];
+        sessionStorage.setItem("data", JSON.stringify(data));
+        console.log("보냈다!");
+        history.push("/result");
       });
     }
   }, [results.length]);
@@ -50,16 +53,16 @@ const QuestionContainer = ({ history }: QuestionContainerProps) => {
   const sentenceItems =
     currentId.current >= 10
       ? []
-      : questionList["questionList"][currentId.current]["options"].map((option: Array<string>) => (
+      : questionList["questionList"][currentId.current]["options"].map((option: Array<string>, i: number) => (
           <Grid container direction='column' justify='flex-start' alignItems='center'>
-            <Button variant='contained' color='primary' onClick={() => changeQuestion(option[0])}>
+            <Button key={i} variant='contained' color='primary' onClick={() => changeQuestion(option[0])}>
               {option[1]}
             </Button>
             &nbsp;
           </Grid>
         ));
   return (
-    <div>
+    <Grid item>
       {results.length === 10 ? (
         <>
           <Loading />
@@ -70,7 +73,7 @@ const QuestionContainer = ({ history }: QuestionContainerProps) => {
         </>
       )}
       {sentenceItems}
-    </div>
+    </Grid>
   );
 };
 
