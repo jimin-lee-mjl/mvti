@@ -14,7 +14,7 @@ axios.defaults.headers["Access-Control-Allow-Origin"] = "*";
 const getVillains = (name: string) =>
   axios({
     method: "get",
-    url: `/api/character/${name}`,
+    url: `http://elice-kdt-ai-track-vm-da-05.koreacentral.cloudapp.azure.com:8000/api/character/${name}`,
     headers: {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE, OPTIONS",

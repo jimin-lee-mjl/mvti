@@ -41,7 +41,6 @@
     "wordcloud": "^1.2.0",
     "yarn": "^1.22.10"
   },
-  "proxy": "http://elice-kdt-ai-track-vm-da-05.koreacentral.cloudapp.azure.com:8000",
   "scripts": {
     "start": "npm run prettier && npm run lint && react-scripts start",
     "build": "npm run prettier && npm run lint && react-scripts build",
