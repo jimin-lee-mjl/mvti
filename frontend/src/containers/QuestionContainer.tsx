@@ -1,48 +1,80 @@
-import React, { useState, useRef } from 'react';
-import QuestionHeader from '../components/sentiment_test/QuestionHeader';
-import Button from '@material-ui/core/Button';
+import React, { useState, useRef, useEffect } from "react";
+import { RouteComponentProps, withRouter, Redirect } from "react-router";
 
-type question = {
-  number: number;
-  sentence: string;
-  firstOption: string;
-  secondOption: string;
-};
+import axios from "axios";
+import { Grid, Button } from "@material-ui/core";
 
-type QuestionContainerProps = {
-  questions: Array<question>;
-};
+import Loading from "../components/sentiment_test/Loading";
+import QuestionHeader from "../components/sentiment_test/QuestionHeader";
+import ProgressBar from "../components/sentiment_test/ProgressBar";
+import type { question } from "../data/QuestionList";
+import questionList from "../data/QuestionList";
 
-const QuestionContainer = ({ questions }: QuestionContainerProps) => {
-  const [question, setQuestion] = useState<question>(questions[0]);
-  const [results, setResults] = useState<Array<number>>([]);
+type QuestionContainerProps = RouteComponentProps;
+
+const QuestionContainer = ({ history }: QuestionContainerProps) => {
   const currentId = useRef<number>(0);
-  const changeQuestion = (type: number) => {
+  const [question, setQuestion] = useState(questionList["questionList"][0]);
+  const [results, setResults] = useState<Array<string>>([]);
+
+  useEffect(() => {
+    if (results.length === 10) {
+      const data = { words: results };
+      axios({
+        method: "post",
+        url: "/api/sentiment/",
+        data,
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE, OPTIONS",
+          "Access-Control-Allow-Headers": "*",
+          "Access-Control-Max-Age": 86400,
+        },
+      }).then((res) => {
+        console.log("전송 성공");
+        const data = [res.data];
+        sessionStorage.setItem("data", JSON.stringify(data));
+        console.log("보냈다!");
+        history.push("/result");
+      });
+    }
+  }, [results.length]);
+  const changeQuestion = async (type: string) => {
     currentId.current += 1;
-    setQuestion(questions[currentId.current]);
+    setQuestion(questionList["questionList"][currentId.current]);
     addResults(type);
   };
-  const addResults = (type: number) => {
+
+  const addResults = (type: string) => {
     setResults([...results, type]);
   };
+  console.log(results);
+  const sentenceItems =
+    currentId.current >= 10
+      ? []
+      : questionList["questionList"][currentId.current]["options"].map((option: Array<string>, i: number) => (
+          <Grid container direction='column' justify='flex-start' alignItems='center'>
+            <Button key={i} variant='contained' color='primary' onClick={() => changeQuestion(option[0])}>
+              {option[1]}
+            </Button>
+            &nbsp;
+          </Grid>
+        ));
   return (
-    <div>
-      <QuestionHeader question={question} />
-      <Button onClick={() => changeQuestion(1)}>{question.firstOption}</Button>
-      <Button onClick={() => changeQuestion(2)}>{question.secondOption}</Button>
-    </div>
+    <Grid item>
+      {results.length === 10 ? (
+        <>
+          <Loading />
+        </>
+      ) : (
+        <>
+          <ProgressBar stepIndex={currentId.current} /> <QuestionHeader question={question} />
+        </>
+      )}
+      {sentenceItems}
+    </Grid>
   );
 };
 
-QuestionContainer.defaultProps = {
-  questions: [
-    {
-      number: 1,
-      sentence: 'This is Example Question',
-      firstOption: 'yes',
-      secondOption: 'no',
-    },
-  ],
-};
-
-export default QuestionContainer;
+export default withRouter(QuestionContainer);

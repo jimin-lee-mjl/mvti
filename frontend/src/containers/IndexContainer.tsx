@@ -1,63 +1,71 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { RouteComponentProps, withRouter } from "react-router";
-import Box from "@material-ui/core/Box";
-import Button from "@material-ui/core/Button";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-
+import { Grid, Button, Modal } from "@material-ui/core";
+import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import IndexHeader from "../components/sentiment_test/IndexHeader";
 
 type IndexContainerProps = RouteComponentProps;
 
-const useStyles = makeStyles((theme) => ({
-  color: {
-    backgroundColor: "purple",
-  },
-  boxColor: {
-    backgroundColor: "white",
-  },
-}));
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    paper: {
+      position: "absolute",
+      width: Math.round(window.innerWidth / 2) > 420 ? Math.round(window.innerWidth / 4) : "100%",
+      height: Math.round(window.innerHeight / 2),
+      left: "50%",
+      top: "50%",
+      marginLeft: Math.round(window.innerWidth / 2) > 420 ? -Math.round(window.innerWidth / 8) : "-57.5%",
+      marginTop: -Math.round(window.innerHeight / 4),
+      background: theme.palette.background.paper,
+      border: "2px solid #000",
+      boxShadow: theme.shadows[5],
+      padding: theme.spacing(2, 4, 3),
+      textAlign: "center",
+    },
+  }),
+);
 
-const IndexContainer: React.FC<IndexContainerProps> = ({ history }) => {
-  const [imgUrl, setImgUrl] = useState<string>();
-
+const IndexContainer = ({ history }: IndexContainerProps) => {
+  const [open, setOpen] = useState(false);
   const startTest = () => history.push("/question");
   const classes = useStyles();
-  return (
-    <div>
-      <Grid container spacing={10} className={classes.color}>
-        <Grid item xs />
-        <Grid item xs={6}>
-          <Box
-            width='100%'
-            height='90%'
-            justifyContent='center'
-            boxShadow={3}
-            mt={5}
-            p={3}
-            className={classes.boxColor}
-          >
-            <IndexHeader imgUrl={imgUrl} />
-            <br />
-            <Box textAlign='center' mt={3}>
-              <Button variant='contained' color='primary' onClick={startTest}>
-                테스트 시작하기
-              </Button>
-              <br />
-              <br />
-              <Button variant='contained' color='primary' onClick={startTest}>
-                전 착한 사람인데요?
-              </Button>
-            </Box>
-            <Box textAlign='center' mt={5}>
-              Movie Villain Type Indicator
-            </Box>
-          </Box>
-        </Grid>
-        <Grid item xs />
-      </Grid>
+  const modal = (
+    <div className={classes.paper}>
+      <div id='simple-modal-title'>
+        <img
+          src='https://cdn.discordapp.com/attachments/824619467832688701/832288902244204634/1602745073935.jpg'
+          style={{ width: "300px", objectFit: "cover" }}
+        />
+      </div>
+      <p id='simple-modal-description'>?????????????????????????</p>
+      <Button variant='contained' color='primary' onClick={startTest}>
+        테스트 시작하기
+      </Button>
     </div>
+  );
+  return (
+    <>
+      <IndexHeader />
+      <Grid item>
+        <Button variant='contained' color='primary' onClick={startTest}>
+          테스트 시작하기
+        </Button>
+      </Grid>
+      <Grid item>
+        <Button variant='contained' color='primary' onClick={() => setOpen(true)}>
+          전 착한 사람인데요?
+        </Button>
+        <Modal
+          open={open}
+          onClose={() => setOpen(false)}
+          aria-labelledby='simple-modal-title'
+          aria-describedby='simple-modal-description'
+          style={{ margin: "0 auto" }}
+        >
+          {modal}
+        </Modal>
+      </Grid>
+    </>
   );
 };
 

@@ -1,74 +1,114 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { RouteComponentProps, withRouter } from "react-router";
-import Box from "@material-ui/core/Box";
-import Button from "@material-ui/core/Button";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
+import { Box, Grid, Button, Typography, Popover } from "@material-ui/core";
+import PopupState, { bindTrigger, bindPopover } from "material-ui-popup-state";
 
-import ResultHeader from "../components/sentiment_test/ResultHeader";
+import Counter from "../components/sentiment_test/Counter";
+import Profile from "../components/detail/Profile";
+import VillainRelation from "../components/sentiment_test/VillainRelation";
+import Result from "../components/detail/Result";
 
-type ResultContainerProps = RouteComponentProps;
+type ResultContainerProps = RouteComponentProps<any>;
 
-const useStyles = makeStyles((theme) => ({
-  color: {
-    backgroundColor: "purple",
-  },
-  boxColor: {
-    backgroundColor: "white",
-  },
-}));
+const ResultContainer = ({ history }: ResultContainerProps) => {
+  console.log("가져왔다!");
+  const data = JSON.parse(sessionStorage.getItem("data") || "{}")[0];
+  console.log(data);
 
-const ResultContainer: React.FC<ResultContainerProps> = ({ history }) => {
-  const [imgUrl, setImgUrl] = useState<string>();
-  const [name, setName] = useState<string>();
-  const [quotes, setQuotes] = useState<string>();
+  const resetTest = () => history.push("/");
+  const detailResult = () => history.push(`/introduce`);
 
-  const classes = useStyles();
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+  const copy = () => {
+    const tmp = document.createElement("textarea");
+    document.body.appendChild(tmp);
+    tmp.value = "http://elice-kdt-ai-track-vm-da-05.koreacentral.cloudapp.azure.com";
+    // tmp.value = "http://localhost:3000";
+    tmp.select();
+    document.execCommand("copy");
+    document.body.removeChild(tmp);
+  };
 
-  const resetTest = () => history.push("/index");
-  const detailResult = () => history.push("/detail");
-  const shareResult = () => console.log("공유하기");
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    copy();
+    setAnchorEl(event.currentTarget);
+    setTimeout(() => setAnchorEl(null), 1000);
+  };
 
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
+
+  const converter = (arr: Array<any>, origin: any) =>
+    arr.map((v: string) => {
+      return Math.round(Number(origin[v]) * 10);
+    });
+  const [varr, uarr] = [Object.keys(data.sentiment).sort(), Object.keys(data.user_sentiment).sort()];
+  const [sdata, udata] = [converter(varr, data.sentiment), converter(uarr, data.user_sentiment)];
+  console.log(sdata, udata);
   return (
-    <div>
-      <Grid container spacing={10} className={classes.color}>
-        <Grid item xs />
-        <Grid item xs={6}>
-          <Box
-            width='100%'
-            height='90%'
-            justifyContent='center'
-            boxShadow={3}
-            mt={5}
-            p={3}
-            className={classes.boxColor}
-          >
-            <ResultHeader imgUrl={imgUrl} quotes={quotes} name={name} />
-            <br />
-            <Box textAlign='center' mt={3}>
-              <Button variant='contained' color='primary' onClick={resetTest}>
-                다시하기
-              </Button>
-              <br />
-              <br />
-              <Button variant='contained' color='primary' onClick={detailResult}>
-                상세보기
-              </Button>
-              <br />
-              <br />
-              <Button variant='contained' color='primary' onClick={shareResult}>
+    <Grid item xs={12}>
+      <Profile
+        name={data.name}
+        script={data.best_talk}
+        mvti={data.mvti_type}
+        imgurl={data.character_img_url}
+      />
+      <br />
+      <Counter cnt={data.count} mvti={data.user_mvti} type={data.count} />
+      <Result url={data.wc_url} sdata={sdata} udata={udata} />
+      <VillainRelation partner={data.partner} rival={data.rival} />
+      <Grid
+        container
+        direction='column'
+        justify='flex-start'
+        alignItems='center'
+        style={{ marginTop: "10px" }}
+      >
+        <Grid item xs={12}>
+          <Button variant='contained' color='primary' onClick={resetTest}>
+            다시하기
+          </Button>
+        </Grid>
+        <Button variant='contained' color='primary' onClick={detailResult}>
+          상세보기
+        </Button>
+        <PopupState variant='popover' popupId='demo-popup-popover'>
+          {(popupState: any) => (
+            <div>
+              {/* <Tooltip title='Copy'> */}
+              <Button aria-describedby={id} variant='contained' color='primary' onClick={handleClick}>
                 공유하기
               </Button>
-            </Box>
-            <Box textAlign='center' mt={5}>
-              Movie Villain Type Indicator
-            </Box>
-          </Box>
-        </Grid>
-        <Grid item xs />
+              {/* </Tooltip> */}
+              <Popover
+                {...bindPopover(popupState)}
+                id={id}
+                open={open}
+                anchorEl={anchorEl}
+                onClose={handleClose}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "center",
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "center",
+                }}
+              >
+                <Box p={2}>
+                  <Typography>클립보드에 복사되었습니다</Typography>
+                </Box>
+              </Popover>
+            </div>
+          )}
+        </PopupState>
       </Grid>
-    </div>
+    </Grid>
   );
 };
 
