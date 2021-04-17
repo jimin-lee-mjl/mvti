@@ -53,9 +53,9 @@ const QuestionContainer = ({ history }: QuestionContainerProps) => {
   const sentenceItems =
     currentId.current >= 10
       ? []
-      : questionList["questionList"][currentId.current]["options"].map((option: Array<string>) => (
+      : questionList["questionList"][currentId.current]["options"].map((option: Array<string>, i: number) => (
           <Grid container direction='column' justify='flex-start' alignItems='center'>
-            <Button variant='contained' color='primary' onClick={() => changeQuestion(option[0])}>
+            <Button key={i} variant='contained' color='primary' onClick={() => changeQuestion(option[0])}>
               {option[1]}
             </Button>
             &nbsp;
