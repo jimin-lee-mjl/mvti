@@ -22,7 +22,7 @@ const QuestionContainer = ({ history }: QuestionContainerProps) => {
       const data = { words: results };
       axios({
         method: "post",
-        url: "/api/sentiment/",
+        url: "http://elice-kdt-ai-track-vm-da-05.koreacentral.cloudapp.azure.com:8000/api/sentiment/",
         data,
         headers: {
           "Content-Type": "application/json",
